@@ -1,9 +1,11 @@
 <?php
 //header("Content-type: image/jpeg");
+	require_once("conn.php");
+	$dbConn = mysqli_connect($db_hostname, $db_username, $db_password, $db_database);
 	
 	$ID = $_GET['imageID'];
  
-	$dbConn = mysqli_connect("localhost", "root", "", "blogg");	
+	
 	$sql = "SELECT imageName FROM gallery WHERE imageID=$ID";
 	$res = mysqli_query($dbConn, $sql);
 	$row = mysqli_fetch_assoc($res);

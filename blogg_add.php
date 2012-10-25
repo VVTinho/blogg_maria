@@ -1,10 +1,11 @@
 <?php
+require_once("conn.php");
 session_start();
 	
-require_once("conn.php");
 
 
-$dbConn = mysqli_connect($db_hostname, $db_username, $db_password, "blogg");			//kan flyttas till conn
+
+$dbConn = mysqli_connect($db_hostname, $db_username, $db_password, $db_database);			//kan flyttas till conn
 
 if (mysqli_connect_errno()) {
 		printf("Connect failed: %s\n", mysqli_connect_error());
@@ -145,7 +146,7 @@ if (isset($_POST['namn']))
 	$content = ($_POST['comment'] );
 	$catID = checkInput($_POST['ID']);
 	
-	$insertSQL = "INSERT INTO bloggPosts (posterName, content, posted, catID) VALUE ('$posterName', '$content', NOW(), $catID ) ";
+	$insertSQL = "INSERT INTO bloggposts (posterName, content, posted, catID) VALUE ('$posterName', '$content', NOW(), $catID ) ";
 	
 	
 	mysqli_query($dbConn, $insertSQL);
@@ -191,7 +192,7 @@ function checkInput($string)
 function displayCategories($currentCatID)
 	{
 		global $dbConn;														//gör databasen tillgänglig
-		$sql = "SELECT catID, catName, catDesc FROM bloggCat";			//fråga till databasen
+		$sql = "SELECT catID, catName, catDesc FROM bloggcat";			//fråga till databasen
 		
 		$res = mysqli_query($dbConn, $sql);									//stoppar in frågan i $res
 		

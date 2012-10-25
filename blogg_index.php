@@ -1,4 +1,17 @@
 <?php
+
+$iphone = strpos($_SERVER['HTTP_USER_AGENT'],"iPhone");
+$android = strpos($_SERVER['HTTP_USER_AGENT'],"Android");
+$palmpre = strpos($_SERVER['HTTP_USER_AGENT'],"webOS");
+$berry = strpos($_SERVER['HTTP_USER_AGENT'],"BlackBerry");
+$ipod = strpos($_SERVER['HTTP_USER_AGENT'],"iPod");
+ 
+IF ($iphone || $android || $palmpre || $ipod || $berry == true) 
+{ 
+header('Location: blogg_phone.php');
+ 
+}
+
 require_once("conn.php");		//hämtar informationen i filen conn.php där variablerna är definierade
 $dbConn = mysqli_connect($db_hostname, $db_username, $db_password, $db_database);		//själva uppkopplingen -- (localhost, användaren, lösenord, databasens namn)
 
@@ -91,8 +104,8 @@ if (mysqli_connect_errno())
 	{
 		global $dbConn;
 		
-		$sql =  "SELECT posted, bloggID, content, posterName, posted FROM bloggPosts ORDER BY bloggID DESC LIMIT 0,10  ";		//hämtar information från databasen
-
+		$sql =  "SELECT posted, bloggID, content, posterName, posted FROM bloggposts ORDER BY bloggID DESC LIMIT 0,10  ";	//hämtar information från databasen
+		//$sql =  "SELECT posted, bloggID, content, posterName, posted FROM bloggPosts ORDER BY bloggID DESC LIMIT 0,10  ";
 
 		$res = mysqli_query($dbConn, $sql);
 		while ( $row = mysqli_fetch_assoc($res) )		//så länge som det finns rader att hämta kommer loopen att hämta dem
@@ -109,7 +122,7 @@ if (mysqli_connect_errno())
 	function displayCategories($currentCatID)
 	{
 		global $dbConn;														//gör databasen tillgänglig
-		$sql = "SELECT catID, catName, catDesc FROM bloggCat";			//fråga till databasen
+		$sql = "SELECT catID, catName, catDesc FROM bloggcat";			//fråga till databasen
 		
 		$res = mysqli_query($dbConn, $sql);									//stoppar in frågan i $res
 		

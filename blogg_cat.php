@@ -95,7 +95,7 @@ session_start();
 	{
 		global $dbConn;
 		
-		$sql =  "SELECT posted, bloggID, content, posterName, posted FROM bloggPosts WHERE catID=$catID ORDER BY bloggID DESC LIMIT 0,10  ";		//hämtar information från databasen
+		$sql =  "SELECT posted, bloggID, content, posterName, posted FROM bloggposts WHERE catID=$catID ORDER BY bloggID DESC LIMIT 0,10  ";		//hämtar information från databasen
 
 
 		$res = mysqli_query($dbConn, $sql);
@@ -134,7 +134,7 @@ session_start();
 	function displayCategories($currentCatID)
 	{
 		global $dbConn;														//gör databasen tillgänglig
-		$sql = "SELECT catID, catName, catDesc FROM bloggCat";			//fråga till databasen
+		$sql = "SELECT catID, catName, catDesc FROM bloggcat";			//fråga till databasen
 		
 		$res = mysqli_query($dbConn, $sql);									//stoppar in frågan i $res
 		
